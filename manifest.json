@@ -1,0 +1,14 @@
+{
+  "name": "BBext",
+  "version": "0.1",
+  "description": "BB ext",
+  "browser_action": {
+    "name": "Annotate posts",
+    "default_icon": "icon.png"
+  },
+  "background_page": "background.html",
+  "permissions": [
+    "tabs",
+    "http://*.boredatbaker.com/*"
+  ]
+}
