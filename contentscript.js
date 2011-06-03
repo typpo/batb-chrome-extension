@@ -30,25 +30,34 @@ var dict = {
     "4d2192b255d112cdf013249f55e14e56":"Legally Bland",
     "f7dd282c24105a4fb3647f9e48256cec":"SHOTS FAIRY",
     "5df886c1a3f591bdbea5b1243b7fc615":"Bee",
+    "63ed359d5f48e541003cdac0f86a31e8":"RelativelyHighExpectationsIndianFather",
+    "09864191c1b9178f06f5da3c94694b12":"Tyler Durden",
     "90f7ba2e4d30acd62b9a94a9d276fe84":"SS",
     "8c21dfaf64b7d264a17df8911ddb4578":"BW",
     "2a7f8b37a8f870e9fe44ae22182a154c":"PP",
     "1b4d646cf502ed65a0ee7c2658742a25":"NZ?"
 };
 
-var replies = $('span[id^="reply"] a')
-for (var i = 0; i < replies.length; i++) {
-    var click = replies[i].getAttribute('onclick');
-    var hash = click.substring(25, 57);
-    var id = click.substring(60, 67);
+function annotate() {
+    var replies = $('span[id^="reply"] a')
+    for (var i = 0; i < replies.length; i++) {
+        var click = replies[i].getAttribute('onclick');
+        var hash = click.substring(25, 57);
+        var id = click.substring(60, 67);
 
-    if (hash in dict) {
-        hash = '<strong>'+dict[hash]+'</strong>';
-    }
+        if (hash in dict) {
+            hash = '<strong>'+dict[hash]+'</strong>';
+        }
 
-    id = '#reply'+id;
-    if ($(id) && $(id).attr('marked') != 'true') {
-        $(id).attr('marked', 'true');
-        $(id).prev().append(' &#8226; ' + hash).css('color','black');
+        id = '#reply'+id;
+        if ($(id) && $(id).attr('marked') != 'true') {
+            $(id).attr('marked', 'true');
+            $(id).prev().append(' &#8226; ' + hash).css('color','black');
+        }
     }
+    setTimeout(annotate, 5000);
 }
+
+annotate();
+//fetchContentChanges.bind(function() {annotate();});
+//fetchReplies.bind(function() {annotate();});

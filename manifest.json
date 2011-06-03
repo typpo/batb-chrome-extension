@@ -10,5 +10,11 @@
   "permissions": [
     "tabs",
     "http://*.boredatbaker.com/*"
+  ],
+  "content_scripts": [
+    {
+        "matches":["http://*.boredatbaker.com/*"],
+        "js":["jquery.min.js","contentscript.js"]
+    }
   ]
 }
