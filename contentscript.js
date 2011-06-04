@@ -4,6 +4,7 @@ var dict = {
     "a8745b04c488db599168596ee9d5b402":"dahtmouse",
     "2c781d1fd2bca5ca21c59c23263bec48":"The Gipper",
     "241eacc04a0d8b09b67a58fc4b1d0f48":"Frat Boi",
+    "cfed6c25dba5dafbf067fef5dfebbfb4":"Frat Boi(2)",
     "e2c59182a206361ce7aceeb9b6220b8e":"Your girl",
     "c58060eb66f1e49736d0bf19ea198ff0":"the chief",
     "334aeb12b0aed950c54ebdc4ac0d9924":"Uncle Ruckus",
@@ -32,32 +33,65 @@ var dict = {
     "5df886c1a3f591bdbea5b1243b7fc615":"Bee",
     "63ed359d5f48e541003cdac0f86a31e8":"RelativelyHighExpectationsIndianFather",
     "09864191c1b9178f06f5da3c94694b12":"Tyler Durden",
-    "90f7ba2e4d30acd62b9a94a9d276fe84":"SS",
+    "656907af842c1dc75ab924a9b78bf4c6":"Kim Jong II",
+    "90f7ba2e4d30acd62b9a94a9d276fe84":"SS?",
     "8c21dfaf64b7d264a17df8911ddb4578":"BW",
     "2a7f8b37a8f870e9fe44ae22182a154c":"PP",
     "1b4d646cf502ed65a0ee7c2658742a25":"NZ?"
 };
 
+var annos = [];
+var htmls = [];
+var keys = [];
+
 function annotate() {
-    var replies = $('span[id^="reply"] a')
+    var replies = $('span[id^="reply"] a');     // :not([marked])
     for (var i = 0; i < replies.length; i++) {
         var click = replies[i].getAttribute('onclick');
-        var hash = click.substring(25, 57);
+        var key = click.substring(25, 57);
         var id = click.substring(60, 67);
 
-        if (hash in dict) {
-            hash = '<strong>'+dict[hash]+'</strong>';
+        var resolved = false;
+        if (key in dict) {
+            // Found it in our dictionary of known users
+            key = dict[key];
+            resolved = true;
         }
 
         id = '#reply'+id;
         if ($(id) && $(id).attr('marked') != 'true') {
             $(id).attr('marked', 'true');
-            $(id).prev().append(' &#8226; ' + hash).css('color','black');
+
+            var annotation = key in localStorage ? localStorage[key] : '';
+            var html = resolved ? '<strong>'+key+'</strong>' : key;
+
+            annos[i] = annotation;
+            htmls[i] = html;
+            keys[i] = key;
+
+            var thing = $(document.createElement('span'))
+                .attr('postno', i+'')
+                .html(html)
+                .css('color','black')
+                .mouseover(function(){
+                    $(this).css('text-decoration','underline');
+                    $(this).css('cursor','pointer');
+                    $(this).append(annos[i]);
+                }).mouseout(function(){
+                    $(this).css('text-decoration','none');
+                    $(this).css('cursor','auto');
+                    $(this).html(htmls[i]);
+                }).click(function(){
+                    var i = parseInt($(this).attr('postno'));
+                    var note = prompt('Note for ' + keys[i] + ':', annos[i]);
+                    if (note && note != '') {
+                        localStorage[keys[i]] = note;
+                    }
+                });
+            $(id).prev().append(' &#8226; ').append(thing);
         }
     }
     setTimeout(annotate, 5000);
 }
 
 annotate();
-//fetchContentChanges.bind(function() {annotate();});
-//fetchReplies.bind(function() {annotate();});

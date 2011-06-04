@@ -9,6 +9,7 @@
   "background_page": "background.html",
   "permissions": [
     "tabs",
+    "contextMenus",
     "http://*.boredatbaker.com/*"
   ],
   "content_scripts": [

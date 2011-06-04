@@ -1,6 +1,17 @@
 <html>
 <head>
+<script src="jquery.min.js"></script>
 <script>
+    /*
+    chrome.contextMenus.create({title: "Add note for %s", contexts:["selection"], onclick: function(info, tab) {
+        var name = $.trim(info.selectionText);
+        var input = prompt("Note for " + name);
+        if (input != null && input != "") {
+            alert('Saved ' + input);
+        }
+    }});
+    */
+
   // Called when the user clicks on the browser action.
   chrome.browserAction.onClicked.addListener(function(tab) {
       alert('Nothing here yet.');
