@@ -40,6 +40,8 @@ var dict = {
     "2c5235885e5b6aba96e4b19f9eb6c4dd":"Dartmouth Breast Girl",
     "7937a677775a9b0676d6a9448c652eab":"Dartmouth Breast Girl(2)",
     "4405165527448d651925b51cb284dc44":"Chapter House Cthulu",
+    "588304f8c10bd4607371c38136b8f2f7":"Jae Daemon",
+    "d289024a2f490435c5fbd2e9196b9962":"Soulja Boy Tell Em",
     "eb492b90e1ac39aa609c851294856b95":"DBG2",
     "90f7ba2e4d30acd62b9a94a9d276fe84":"SS",
     "8c21dfaf64b7d264a17df8911ddb4578":"BW",
